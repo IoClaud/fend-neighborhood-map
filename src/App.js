@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    // Connect the initMap() function within this class to the global window context,
+    // so Google Maps can invoke it
+    window.initMap = this.initMap;
+    // Asynchronously load the Google Maps script, passing in the callback reference
+    loadJS('https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAWKxlzrErKIVd3KfAdeVRj-uW1rRVsoH0&v=3&callback=initMap');
+  }
+
+  initMap() {
+    let map = new window.google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+      center: { lat: 45.07049, lng: 7.68682 }
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div id="map" ref="map"></div>
       </div>
     );
   }
 }
 
 export default App;
+
+function loadJS(src) {
+  let ref = window.document.getElementsByTagName('script')[0];
+  let script = window.document.createElement('script');
+  script.src = src;
+  script.async = true;
+  ref.parentNode.insertBefore(script, ref);
+  script.onerror = function () {
+    document.write('Load error: Google Maps')
+  };
+}
