@@ -19,6 +19,12 @@ class App extends Component {
       styles: styles
     });
 
+    let marker = new window.google.maps.Marker({
+      position: { lat: 45.0765167, lng: 7.6708267 },
+      map: map,
+      title: 'First Marker'
+    });
+
   }
 
   render() {
