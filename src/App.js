@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import * as styles from './mapStyles.json'
+import styles from './mapStyles.json'
+import dataLocations from './locations.json'
 
 class App extends Component {
-
+  state = {
+    locations: dataLocations
+  }
 
   componentDidMount() {
     // Connect the initMap() function within this class to the global window context,
@@ -12,25 +15,28 @@ class App extends Component {
     loadJS('https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAWKxlzrErKIVd3KfAdeVRj-uW1rRVsoH0&v=3&callback=initMap');
   }
 
-  initMap() {
+  initMap = () => {
+    const { locations } = this.state;
+
     let map = new window.google.maps.Map(document.getElementById('map'), {
-      zoom: 13,
+      zoom: 14,
       center: { lat: 45.0765167, lng: 7.6708267 },
       styles: styles
     });
 
-    let marker = new window.google.maps.Marker({
-      position: { lat: 45.0765167, lng: 7.6708267 },
-      map: map,
-      title: 'First Marker'
-    });
+    for (let location of locations) {
+      //console.log(location);
+      let position = location.position;
+      let title = location.title;
+      let id = location.key;
 
-    let infoWindow = new window.google.maps.InfoWindow({
-      content: 'Hello InfoWindow'
-    });
-    marker.addListener('click', function(){
-      infoWindow.open(map,marker)
-    });
+      let marker = new window.google.maps.Marker({
+        position: position,
+        map: map,
+        title: title,
+        id: id
+      });
+    }
 
   }
 

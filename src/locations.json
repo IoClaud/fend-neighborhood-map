@@ -1,0 +1,32 @@
+[
+  {
+    "key": "castello",
+    "title": "Piazza Castello",
+    "position": {"lat": 45.0715073, "lng": 7.6840879},
+    "place_id": "ChIJh9OIB3FtiEcR1DPrc8AQjmw"
+  },
+  {
+    "key": "palatine",
+    "title": "Porte Palatine",
+    "position": {"lat": 45.075003, "lng": 7.6824541},
+    "place_id" : "ChIJcecoGHRtiEcRQXoFypVuXdk"
+  },
+  {
+    "key": "sindone",
+    "title": "Museo della Sindone",
+    "position": {"lat": 45.0760769, "lng": 7.6743457},
+    "place_id" : "EixWaWEgZGVsIENhcm1pbmUsIDEzLCAxMDEyMiBUb3Jpbm8gVE8sIEl0YWxpYSIaEhgKFAoSCS_2G6QLbYhHESxjQUm4Qn3FEA0"
+  },
+  {
+    "key": "egizio",
+    "title": "Museo Egizio",
+    "position": {"lat": 45.0684296, "lng": 7.6821154},
+    "place_id" : "ChIJdYTGEG5tiEcRUxPuXTXCkoc"
+  },
+  {
+    "key": "mole",
+    "title": "La Mole Antonelliana",
+    "position": {"lat": 45.0690113, "lng": 7.6910275},
+    "place_id" : "ChIJUyYGNnttiEcRgOtNtz_tHGQ"
+  }
+]
