@@ -25,6 +25,13 @@ class App extends Component {
       title: 'First Marker'
     });
 
+    let infoWindow = new window.google.maps.InfoWindow({
+      content: 'Hello InfoWindow'
+    });
+    marker.addListener('click', function(){
+      infoWindow.open(map,marker)
+    });
+
   }
 
   render() {
