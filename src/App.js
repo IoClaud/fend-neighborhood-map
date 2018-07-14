@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import * as styles from './mapStyles.json'
-import * as locations from './locations.json'
+import styles from './mapStyles.json'
+import dataLocations from './locations.json'
 
 class App extends Component {
   state = {
-    locations: locations,
+    locations: dataLocations,
     map: '',
     infoWindow: ''
   }
@@ -60,14 +60,19 @@ class App extends Component {
   populateInfoWindow(marker) {
     const { map, infoWindow } = this.state;
 
+    /* Check if the open infoWindow is different from the clicked marker */
     if (infoWindow.marker !== marker) {
-      infoWindow.marker = marker;
-      infoWindow.setContent(`<div>${marker.title}</div>`);
-      infoWindow.open(map, marker);
+      /* if it is, set infoWindow to the clicked marker */
+      infoWindow.marker = marker
+      infoWindow.setContent(`<div>${marker.title}</div>`)
+      infoWindow.open(map, marker)
 
       infoWindow.addListener('closeclick', function () {
-        infoWindow.setMarker = null;
+        infoWindow.setMarker = null
       });
+    } else {
+      /* if click on the marker that has already open infoWindow, reopen it */
+      infoWindow.open(map, marker)
     }
   }
 
