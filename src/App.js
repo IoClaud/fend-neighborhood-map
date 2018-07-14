@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './mapStyles.json'
+import * as styles from './mapStyles.json'
 
 class App extends Component {
 
@@ -15,9 +15,10 @@ class App extends Component {
   initMap() {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       zoom: 13,
-      center: { lat: 45.07049, lng: 7.68682 },
+      center: { lat: 45.0765167, lng: 7.6708267 },
       styles: styles
     });
+
   }
 
   render() {
