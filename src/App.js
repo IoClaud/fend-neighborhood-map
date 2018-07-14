@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import styles from './mapStyles.json'
-import dataLocations from './locations.json'
+import * as styles from './mapStyles.json'
+import * as locations from './locations.json'
 
 class App extends Component {
   state = {
-    locations: dataLocations
+    locations: locations,
+    map: '',
+    infoWindow: ''
   }
 
   componentDidMount() {
@@ -16,16 +18,26 @@ class App extends Component {
   }
 
   initMap = () => {
+    let me = this;
     const { locations } = this.state;
 
+    let infoWindow = new window.google.maps.InfoWindow();
+
+    /* Define the map */
     let map = new window.google.maps.Map(document.getElementById('map'), {
       zoom: 14,
       center: { lat: 45.0765167, lng: 7.6708267 },
       styles: styles
     });
 
+    /* Keep state in sync */
+    this.setState({
+      map,
+      infoWindow
+    });
+
+    /* Create a marker for each location */
     for (let location of locations) {
-      //console.log(location);
       let position = location.position;
       let title = location.title;
       let id = location.key;
@@ -34,10 +46,29 @@ class App extends Component {
         position: position,
         map: map,
         title: title,
-        id: id
+        id: id,
+        animation: window.google.maps.Animation.DROP
+      });
+
+      /* Open infoWindow when click on the marker */
+      marker.addListener('click', function () {
+        me.populateInfoWindow(marker);
       });
     }
+  }
 
+  populateInfoWindow(marker) {
+    const { map, infoWindow } = this.state;
+
+    if (infoWindow.marker !== marker) {
+      infoWindow.marker = marker;
+      infoWindow.setContent(`<div>${marker.title}</div>`);
+      infoWindow.open(map, marker);
+
+      infoWindow.addListener('closeclick', function () {
+        infoWindow.setMarker = null;
+      });
+    }
   }
 
   render() {
