@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import styles from './mapStyles.json'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+
 
   componentDidMount() {
     // Connect the initMap() function within this class to the global window context,
@@ -16,7 +15,8 @@ class App extends Component {
   initMap() {
     let map = new window.google.maps.Map(document.getElementById('map'), {
       zoom: 13,
-      center: { lat: 45.07049, lng: 7.68682 }
+      center: { lat: 45.07049, lng: 7.68682 },
+      styles: styles
     });
   }
 
