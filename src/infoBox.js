@@ -7,7 +7,8 @@ import dataLocations from './locations.json'
 export default class InfoBox extends Component {
   state = {
     query: '',
-    filteredLocations: dataLocations
+    filteredLocations: dataLocations,
+    filteredMarkers: []
   }
 
   updateQuery = (query) => {
@@ -16,15 +17,39 @@ export default class InfoBox extends Component {
   }
 
   updateFilteredLocations = (query) => {
-    let showingLocation;
+    let self = this
+    let showingLocation
+    let showingMarkers
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
+
+      /* Add location to the array if its title match the query */
       showingLocation = this.props.locationsList.filter((location) => match.test(location.title))
-      this.setState({ filteredLocations: showingLocation })
+
+      /* Add marker to the array if its title match the query */
+      showingMarkers = this.props.markers.filter(marker => match.test(marker.title))
+
+      this.setState({
+        filteredLocations: showingLocation,
+        filteredMarkers: showingMarkers
+      })
     } else {
-      this.setState({ filteredLocations: this.props.locationsList })
+      this.setState({
+        filteredLocations: this.props.locationsList,
+        filteredMarkers: this.props.markers
+      })
     }
+
+    /* Display the markers on the map accordingly to the state */
+    this.props.markers.map(marker => marker.setVisible(false))
+    setTimeout(() => {
+      self.props.markers.map(marker => self.handleMarkerVisibility(marker))
+    }, 1)
+  }
+
+  handleMarkerVisibility = (marker) => {
+    this.state.filteredMarkers.map(filteredMarker => filteredMarker.id === marker.id && marker.setVisible(true))
   }
 
   render() {

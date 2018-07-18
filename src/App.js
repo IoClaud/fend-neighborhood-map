@@ -8,7 +8,8 @@ class App extends Component {
   state = {
     locations: dataLocations,
     map: '',
-    infoWindow: ''
+    infoWindow: '',
+    markers: []
   }
 
   componentDidMount() {
@@ -19,7 +20,7 @@ class App extends Component {
 
   initMap = () => {
     let self = this;
-    const { locations } = this.state;
+    const { locations, markers } = this.state;
 
     let infoWindow = new window.google.maps.InfoWindow();
 
@@ -50,6 +51,9 @@ class App extends Component {
         animation: window.google.maps.Animation.DROP
       });
 
+      /* Get those markers into the state */
+      markers.push(marker);
+
       /* Open infoWindow when click on the marker */
       marker.addListener('click', function () {
         self.populateInfoWindow(marker);
@@ -77,11 +81,12 @@ class App extends Component {
   }
 
   render() {
-    const { locations } = this.state
+    const { locations, markers } = this.state
     return (
       <div className="App">
         <InfoBox
           locationsList = {locations}
+          markers={markers}
         />
         <div id="map" ref="map"></div>
       </div>
