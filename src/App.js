@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
+
 import styles from './mapStyles.json'
-import locations from './locations.json'
+import dataLocations from './locations.json'
 import InfoBox from './infoBox'
 
 class App extends Component {
   state = {
-    locations: locations,
+    locations: dataLocations,
     map: '',
     infoWindow: ''
   }
 
   componentDidMount() {
-    // Connect the initMap() function within this class to the global window context,
-    // so Google Maps can invoke it
     window.initMap = this.initMap;
-    // Asynchronously load the Google Maps script, passing in the callback reference
     loadJS('https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAWKxlzrErKIVd3KfAdeVRj-uW1rRVsoH0&v=3&callback=initMap');
   }
+
 
   initMap = () => {
     let self = this;
@@ -78,9 +77,12 @@ class App extends Component {
   }
 
   render() {
+    const { locations } = this.state
     return (
       <div className="App">
-        <InfoBox />
+        <InfoBox
+          locationsList = {locations}
+        />
         <div id="map" ref="map"></div>
       </div>
     );
