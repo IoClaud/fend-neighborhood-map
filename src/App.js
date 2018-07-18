@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import styles from './mapStyles.json'
-import dataLocations from './locations.json'
+import locations from './locations.json'
+import InfoBox from './infoBox'
 
 class App extends Component {
   state = {
-    locations: dataLocations,
+    locations: locations,
     map: '',
     infoWindow: ''
   }
@@ -18,7 +19,7 @@ class App extends Component {
   }
 
   initMap = () => {
-    let me = this;
+    let self = this;
     const { locations } = this.state;
 
     let infoWindow = new window.google.maps.InfoWindow();
@@ -52,7 +53,7 @@ class App extends Component {
 
       /* Open infoWindow when click on the marker */
       marker.addListener('click', function () {
-        me.populateInfoWindow(marker);
+        self.populateInfoWindow(marker);
       });
     }
   }
@@ -79,6 +80,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <InfoBox />
         <div id="map" ref="map"></div>
       </div>
     );
