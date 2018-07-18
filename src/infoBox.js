@@ -1,27 +1,35 @@
 import React, { Component } from 'react';
 import escapeRegExp from 'escape-string-regexp'
+import sortBy from 'sort-by';
+
+import dataLocations from './locations.json'
 
 export default class InfoBox extends Component {
   state = {
-    query: ''
+    query: '',
+    filteredLocations: dataLocations
   }
 
   updateQuery = (query) => {
     this.setState({ query })
+    this.updateFilteredLocations(query)
   }
 
-  render() {
-    const { query } = this.state;
-    const { locationsList } = this.props;
-
+  updateFilteredLocations = (query) => {
     let showingLocation;
 
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
-      showingLocation = locationsList.filter((location) => match.test(location.title))
+      showingLocation = this.props.locationsList.filter((location) => match.test(location.title))
+      this.setState({ filteredLocations: showingLocation })
     } else {
-      showingLocation = locationsList
+      this.setState({ filteredLocations: this.props.locationsList })
     }
+  }
+
+  render() {
+    const { query, filteredLocations } = this.state;
+    filteredLocations.sort(sortBy('name'))
 
     return (
       <aside className="infoBox">
@@ -39,7 +47,7 @@ export default class InfoBox extends Component {
         </form>
         <ul className="location-list">
         {
-          showingLocation.map(location => (
+          filteredLocations.map(location => (
           <li
             className="location"
             key={location.key}
