@@ -5,6 +5,10 @@ export default class InfoBox extends Component {
     query: ''
   }
 
+  updateQuery = (query) => {
+    this.setState({ query })
+  }
+
   render() {
     const { query } = this.state;
 
@@ -14,11 +18,15 @@ export default class InfoBox extends Component {
           className="info-form"
           onSubmit={(event) => event.preventDefault()}
         >
+        <button className="info-btn">
+          List
+        </button>
         <input
           className="info-input"
           type="text"
           placeholder="Search location..."
           value={query}
+          onChange = {(event) => this.updateQuery(event.target.value)}
         />
         </form>
       </aside>

@@ -15,6 +15,21 @@ body,
 }
 
 .App,
-#map {
+#map,
+.infoBox {
 	height: 100%;
+}
+
+.App {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#map {
+  width: calc(100% - 250px);
+}
+
+.infoBox {
+  min-width: 250px;
 }

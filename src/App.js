@@ -27,7 +27,7 @@ class App extends Component {
     /* Define the map */
     let map = new window.google.maps.Map(document.getElementById('map'), {
       zoom: 14,
-      center: { lat: 45.0765167, lng: 7.6708267 },
+      center: { lat: 45.0715073, lng: 7.6840879 },
       styles: styles
     });
 
