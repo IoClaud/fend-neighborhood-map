@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "escape-regex-string": "^1.0.6",
+    "fetch-jsonp": "^1.1.3",
     "google-maps-react": "^2.0.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

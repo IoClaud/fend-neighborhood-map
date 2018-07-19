@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import fetchJsonp from 'fetch-jsonp';
 
 import styles from './mapStyles.json'
 import dataLocations from './locations.json'
@@ -10,7 +11,6 @@ class App extends Component {
     map: '',
     InfoWindow: {},
     markers: [],
-    infoWindowIsOpen: false,
     currentMarker: {}
   }
 
@@ -65,6 +65,9 @@ class App extends Component {
 
   populateInfoWindow(marker) {
     const { map, InfoWindow } = this.state;
+
+    this.getInfos(marker);
+
     /* Check if the open infoWindow is different from the clicked marker */
     if (InfoWindow.marker !== marker) {
       /* if it is, set infoWindow to the clicked marker */
@@ -83,10 +86,29 @@ class App extends Component {
 
   openInfoWindow = (marker) => {
     this.setState({
-      infoWindowIsOpen: true,
       currentMarker: marker
     });
     this.populateInfoWindow(this.state.currentMarker)
+  }
+
+  getInfos = (marker) => {
+    /* Get the good URL */
+    let place = marker.title;
+    let srcUrl = 'https://en.wikipedia.org/w/api.php?action=query&titles=' +
+    place +
+    '&prop=revisions&rvprop=content&format=json&formatversion=2';
+    srcUrl = srcUrl.replace(/ /g, '%20');
+
+    fetchJsonp(srcUrl)
+      .then(function(response) {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(
+          `Network response was not ok: ${response.statustext}`);
+      }).then(function (data) {
+        console.log(data);
+      });
   }
 
   render() {
