@@ -120,9 +120,12 @@ export default class InfoBox extends Component {
         {
           filteredLocations.map(location => (
           <li
+            tabIndex={0}
             className="location"
             key={location.key}
             onClick= {() => this.manageMarker(location)}
+            onKeyPress={() =>
+              this.manageMarker(location)}
           >
             {location.name}
           </li>

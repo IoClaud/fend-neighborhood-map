@@ -78,7 +78,7 @@ class App extends Component {
       .then(function(response) {
         return response.json()
       }).then(function (data) {
-        //console.log(data.query.pages)
+        console.log(data.query.pages)
         let pages = data.query.pages
         let pageId = Object.keys(data.query.pages)[0]
         let pageContent = pages[pageId].extract
@@ -88,7 +88,7 @@ class App extends Component {
       }).catch(function (error) {
         /* handle page error */
         let pageError = 'Parsing failed ' + error;
-        alert(pageError);
+        alert('Error\n'+pageError);
       })
 
   }
@@ -130,7 +130,7 @@ class App extends Component {
           markers={markers}
           getInfos = {this.getInfos}
         />
-        <div id="map" ref="map"></div>
+        <div id="map" role="application"></div>
       </div>
     );
   }
