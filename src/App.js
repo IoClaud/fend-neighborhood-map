@@ -12,7 +12,8 @@ class App extends Component {
     InfoWindow: {},
     markers: [],
     currentMarker: {},
-    infoContent: ''
+    infoContent: '',
+    isOpen: false
   }
 
   componentDidMount() {
@@ -119,14 +120,22 @@ class App extends Component {
     }
   }
 
+  toggleOpen = () => {
+    this.setState((prevState) => ({
+      isOpen: !(prevState.isOpen)
+    }))
+  }
+
   render() {
-    const { locations, markers } = this.state
+    const { locations, markers, isOpen } = this.state
     return (
       <div className="App">
         <InfoBox
           locationsList = {locations}
           markers={markers}
           getInfos = {this.getInfos}
+          toggleOpen = {this.toggleOpen}
+          isOpen = {isOpen}
         />
         <div id="map" role="application"></div>
       </div>

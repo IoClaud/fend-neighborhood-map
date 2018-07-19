@@ -47,7 +47,7 @@ li {
 */
 
 .infoWindow-box {
-  max-width: 500px;
+  max-width: 200px;
   padding: 10px;
   box-shadow: 2px 4px 4px rgba(170,170,170,0.75);
 }
@@ -81,7 +81,10 @@ li {
 .infoBox {
   width: 250px;
   position: absolute;
-  left: -250px;
+  left: -185px;
+  z-index: 100;
+  background: white;
+  transition: left 0.3s ease;
 }
 
 .infoBox.open {
@@ -96,11 +99,10 @@ li {
 }
 
 .infoBox header .menu {
-  width: 60px;
+  min-width: 55px;
   height: 40px;
   background: #dadada;
   border: 1px solid #dadada;
-  margin-right: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,8 +112,12 @@ li {
   border: 1px solid black;
 }
 
+.infoBox header form {
+  margin-right: 5px;
+}
+
 .infoBox header form .info-input {
-  min-width: 180px;
+  width: 180px;
   line-height: 28px;
   font-size: 18px;
   padding: 5px;
@@ -142,7 +148,6 @@ li {
 
 .infoBox .location-list .location:focus {
   outline: none;
-  border: 1px solid black;
 }
 
 .infoBox .location-list .location .location-icon {
@@ -165,7 +170,6 @@ li {
   font-size: 18px;
   padding: 5px;
   background: white;
-  text-align: right;
   transition: all 0.3s ease;
 }
 
@@ -192,5 +196,10 @@ li {
     position: relative;
     left: 0;
   }
+}
 
+@media only screen and (min-width: 600px) {
+  .infoWindow-box {
+    max-width: 500px;
+  }
 }

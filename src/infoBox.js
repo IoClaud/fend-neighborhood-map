@@ -106,6 +106,7 @@ export default class InfoBox extends Component {
 
   render() {
     const { query, filteredLocations } = this.state;
+    const { isOpen } = this.props
 
     const VectorIcons = {
       columns,
@@ -117,13 +118,8 @@ export default class InfoBox extends Component {
     filteredLocations.sort(sortBy('name'))
 
     return (
-      <aside className="infoBox">
+      <aside className={isOpen ? "infoBox open" : "infoBox"}>
         <header>
-          <div className="menu"
-            onClick={() =>
-            this.updateQuery('')}
-          >Reset
-          </div>
           <form
             className="info-form"
             onSubmit={(event) => event.preventDefault()}
@@ -136,6 +132,13 @@ export default class InfoBox extends Component {
             onChange = {(event) => this.updateQuery(event.target.value)}
           />
           </form>
+          <div className="menu"
+            onClick={()=> {
+              this.props.toggleOpen()
+              this.updateQuery('')
+            }}
+          >Reset
+          </div>
         </header>
 
         <ul className="location-list">
@@ -149,11 +152,19 @@ export default class InfoBox extends Component {
             onKeyPress={() =>
               this.manageMarker(location)}
           >
-            <div className="location-icon">
-              <img src={VectorIcons[location.icon]} alt={location.title}/>
-            </div>
             <div className="location-name">
               {location.name}
+            </div>
+            <div
+              className="location-icon"
+              onClick={()=> {
+                this.updateQuery(location.name)
+                if(isOpen) {
+                  this.props.toggleOpen()
+                }
+              }}
+            >
+              <img src={VectorIcons[location.icon]} alt={location.title}/>
             </div>
           </li>
           ))
