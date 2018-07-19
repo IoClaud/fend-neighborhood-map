@@ -40,6 +40,28 @@ li {
   min-width: 250px;
 }
 
-.infoWindow-content {
-  max-width: 500px !important;
+.infoWindow-box {
+  max-width: 500px;
+  padding: 10px;
+  box-shadow: 2px 4px 4px rgba(170,170,170,0.75);
+}
+
+.infoWindow-box header {
+  margin-bottom: 10px;
+}
+
+.infoWindow-box header p {
+  color: #aaa;
+  font-style: italic;
+  font-size: 12px;
+  margin: 0 0 5px;
+}
+
+.infoWindow-box header h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.infoWindow-box header hr {
+  margin: 10px 0;
 }

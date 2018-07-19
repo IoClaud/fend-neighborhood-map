@@ -8,7 +8,7 @@ import InfoBox from './infoBox'
 class App extends Component {
   state = {
     locations: dataLocations,
-    map: '',
+    mapState: '',
     InfoWindow: {},
     markers: [],
     currentMarker: {},
@@ -35,7 +35,7 @@ class App extends Component {
 
     /* Keep state in sync */
     this.setState({
-      map,
+      mapState: map,
       InfoWindow : infoWindow,
     });
 
@@ -92,27 +92,30 @@ class App extends Component {
   }
 
   populateInfoWindow(marker, infoContent) {
-    const { map, InfoWindow } = this.state;
-
-    //this.getInfos(marker);
-    console.log('infoContent',infoContent);
+    const { mapState, InfoWindow } = this.state;
+    
     /* Check if the open infoWindow is different from the clicked marker */
     if (InfoWindow.marker !== marker) {
       /* if it is, set infoWindow to the clicked marker */
       InfoWindow.marker = marker
       InfoWindow.setContent(`
-        <div>${marker.name}</div>
+        <div class="infoWindow-box">
+        <header>
+        <p class="infoWindow-attribution">Provided by Wikipedia</p>
+        <h2 class="infoWindow-title">${marker.name}</h2>
         <hr/>
-        <div class="infoWindow-content">${infoContent}</div>
+        </header>
+        <article class="infoWindow-content">${infoContent}</article>
+        </div>
         `)
-      InfoWindow.open(map, marker)
+      InfoWindow.open(mapState, marker)
 
       InfoWindow.addListener('closeclick', function () {
         InfoWindow.setMarker = null
       })
     } else {
       /* if click on the marker that has already open infoWindow, reopen it */
-      InfoWindow.open(map, marker)
+      InfoWindow.open(mapState, marker)
     }
   }
 
