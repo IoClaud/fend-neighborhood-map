@@ -78,13 +78,11 @@ class App extends Component {
       .then(function(response) {
         return response.json()
       }).then(function (data) {
-        console.log(data.query.pages)
         let pages = data.query.pages
         let pageId = Object.keys(data.query.pages)[0]
         let pageContent = pages[pageId].extract
 
         self.populateInfoWindow(marker, pageContent)
-        //console.log(self.state.infoContent);
       }).catch(function (error) {
         /* handle page error */
         let pageError = 'Parsing failed ' + error;

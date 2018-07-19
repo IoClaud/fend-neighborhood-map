@@ -35,14 +35,11 @@ li {
 
 .App {
   width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
 }
 
 #map {
-  width: calc(100% - 250px);
+  width: 100%;
 }
-
 
 
 /*
@@ -82,7 +79,13 @@ li {
 */
 
 .infoBox {
-  min-width: 250px;
+  width: 250px;
+  position: absolute;
+  left: -250px;
+}
+
+.infoBox.open {
+  left: 0;
 }
 
 .infoBox header {
@@ -168,4 +171,26 @@ li {
 
 .infoBox .location-list .location:hover .location-name {
   background: #ddd;
+}
+
+/*
+*** MEDIA QUERY
+*/
+
+@media only screen and (min-width: 420px) {
+  .App {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  #map {
+    width: calc(100% - 250px);
+  }
+
+  .infoBox {
+    min-width: 250px;
+    position: relative;
+    left: 0;
+  }
+
 }
