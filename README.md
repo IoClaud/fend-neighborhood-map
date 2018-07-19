@@ -12,9 +12,9 @@ Wikipedia Api displays short information about choosen place.
 
 ## REACT COMPONENTS USES
 
-[escape-regex-string](https://www.npmjs.com/package/escape-regex-string)</br>
-[sort-by](https://www.npmjs.com/package/sort-by)</br>
-[fetch-jsonp](https://github.com/camsong/fetch-jsonp)</br>
+[escape-regex-string](https://www.npmjs.com/package/escape-regex-string)
+[sort-by](https://www.npmjs.com/package/sort-by)
+[fetch-jsonp](https://github.com/camsong/fetch-jsonp)
 
 ## INSTALLATION GUIDE
 
