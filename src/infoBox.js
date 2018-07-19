@@ -4,6 +4,12 @@ import sortBy from 'sort-by';
 
 import dataLocations from './locations.json'
 
+import columns from './icon/columns.svg';
+import jesus from './icon/jesus.svg';
+import mole from './icon/mole-antonelliana.svg';
+import palace from './icon/palace.svg';
+import sarcophagus from './icon/sarcophagus.svg';
+
 export default class InfoBox extends Component {
   constructor(props) {
     super(props);
@@ -100,22 +106,38 @@ export default class InfoBox extends Component {
 
   render() {
     const { query, filteredLocations } = this.state;
+
+    const VectorIcons = {
+      columns,
+      jesus,
+      mole,
+      palace,
+      sarcophagus
+    }
     filteredLocations.sort(sortBy('name'))
 
     return (
       <aside className="infoBox">
-        <form
-          className="info-form"
-          onSubmit={(event) => event.preventDefault()}
-        >
-        <input
-          className="info-input"
-          type="text"
-          placeholder="Search location..."
-          value={query}
-          onChange = {(event) => this.updateQuery(event.target.value)}
-        />
-        </form>
+        <header>
+          <div className="menu"
+            onClick={() =>
+            this.updateQuery('')}
+          >Reset
+          </div>
+          <form
+            className="info-form"
+            onSubmit={(event) => event.preventDefault()}
+          >
+          <input
+            className="info-input"
+            type="text"
+            placeholder="Search location..."
+            value={query}
+            onChange = {(event) => this.updateQuery(event.target.value)}
+          />
+          </form>
+        </header>
+
         <ul className="location-list">
         {
           filteredLocations.map(location => (
@@ -127,7 +149,12 @@ export default class InfoBox extends Component {
             onKeyPress={() =>
               this.manageMarker(location)}
           >
-            {location.name}
+            <div className="location-icon">
+              <img src={VectorIcons[location.icon]} alt={location.title}/>
+            </div>
+            <div className="location-name">
+              {location.name}
+            </div>
           </li>
           ))
         }

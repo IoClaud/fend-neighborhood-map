@@ -1,7 +1,13 @@
-body {
+/*
+*** General ***
+*/
+
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  box-sizing: border-box;
 }
 
 html,
@@ -9,9 +15,10 @@ body,
 #root {
 	height: 100%;
 	width: 100%;
-	margin: 0;
-	padding: 0;
-	font-family: sans-serif;
+}
+
+body {
+  font-family: sans-serif;
 }
 
 ol,
@@ -36,9 +43,11 @@ li {
   width: calc(100% - 250px);
 }
 
-.infoBox {
-  min-width: 250px;
-}
+
+
+/*
+*** InfoWindow ***
+*/
 
 .infoWindow-box {
   max-width: 500px;
@@ -64,4 +73,99 @@ li {
 
 .infoWindow-box header hr {
   margin: 10px 0;
+}
+
+
+
+/*
+*** InfoBox ***
+*/
+
+.infoBox {
+  min-width: 250px;
+}
+
+.infoBox header {
+  display: flex;
+  padding: 5px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.infoBox header .menu {
+  width: 60px;
+  height: 40px;
+  background: #dadada;
+  border: 1px solid #dadada;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoBox header .menu:hover {
+  border: 1px solid black;
+}
+
+.infoBox header form .info-input {
+  min-width: 180px;
+  line-height: 28px;
+  font-size: 18px;
+  padding: 5px;
+  border: 1px solid blue;
+  outline: none;
+  background: white;
+}
+
+.infoBox header form .info-input:hover {
+  border: 1px solid red;
+}
+
+.infoBox header form .info-input:focus {
+  border: 1px solid red;
+  background: #fffdda;
+}
+
+.infoBox .location-list {
+  padding: 5px;
+}
+
+.infoBox .location-list .location {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  padding: 5px 0;
+}
+
+.infoBox .location-list .location:focus {
+  outline: none;
+  border: 1px solid black;
+}
+
+.infoBox .location-list .location .location-icon {
+  width: 60px;
+  height: 40px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoBox .location-list .location .location-icon img {
+  display: block;
+  height: 100%;
+}
+
+.infoBox .location-list .location .location-name {
+  min-width: 180px;
+  line-height: 40px;
+  font-size: 18px;
+  padding: 5px;
+  background: white;
+  text-align: right;
+  transition: all 0.3s ease;
+}
+
+.infoBox .location-list .location:hover .location-name {
+  background: #dadada;
 }

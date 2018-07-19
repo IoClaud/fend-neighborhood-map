@@ -4,34 +4,39 @@
     "id": "Royal_Palace_of_Turin",
     "title": "Royal_Palace_of_Turin",
     "name": "Palazzo Reale",
-    "position": {"lat": 45.0715073, "lng": 7.6840879}
+    "position": {"lat": 45.0715073, "lng": 7.6840879},
+    "icon": "palace"
   },
   {
     "key": "palatine",
     "id": "Palatine_Towers",
     "title": "Palatine_Towers",
     "name": "Porte Palatine",
-    "position": {"lat": 45.075003, "lng": 7.6824541}
+    "position": {"lat": 45.075003, "lng": 7.6824541},
+    "icon": "columns"
   },
   {
     "key": "sindone",
     "id": "Shroud_of_Turin",
     "title": "Shroud_of_Turin",
     "name": "Museo della Sindone",
-    "position": {"lat": 45.0760769, "lng": 7.6743457}
+    "position": {"lat": 45.0760769, "lng": 7.6743457},
+    "icon": "jesus"
   },
   {
     "key": "egizio",
     "id": "Museo_Egizio",
     "title": "Museo_Egizio",
     "name": "Museo Egizio",
-    "position": {"lat": 45.0684296, "lng": 7.6821154}
+    "position": {"lat": 45.0684296, "lng": 7.6821154},
+    "icon": "sarcophagus"
   },
   {
     "key": "mole",
     "id": "Mole_Antonelliana",
     "title": "Mole_Antonelliana",
     "name": "Mole Antonelliana",
-    "position": {"lat": 45.0690113, "lng": 7.6910275}
+    "position": {"lat": 45.0690113, "lng": 7.6910275},
+    "icon": "mole"
   }
 ]
