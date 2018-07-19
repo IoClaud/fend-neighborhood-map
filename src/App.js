@@ -8,15 +8,16 @@ class App extends Component {
   state = {
     locations: dataLocations,
     map: '',
-    infoWindow: '',
-    markers: []
+    InfoWindow: {},
+    markers: [],
+    infoWindowIsOpen: false,
+    currentMarker: {}
   }
 
   componentDidMount() {
     window.initMap = this.initMap;
     loadJS('https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAWKxlzrErKIVd3KfAdeVRj-uW1rRVsoH0&v=3&callback=initMap');
   }
-
 
   initMap = () => {
     let self = this;
@@ -34,7 +35,7 @@ class App extends Component {
     /* Keep state in sync */
     this.setState({
       map,
-      infoWindow
+      InfoWindow : infoWindow
     });
 
     /* Create a marker for each location */
@@ -57,27 +58,35 @@ class App extends Component {
       /* Open infoWindow when click on the marker */
       marker.addListener('click', function () {
         self.populateInfoWindow(marker);
+
       });
     }
   }
 
   populateInfoWindow(marker) {
-    const { map, infoWindow } = this.state;
-
+    const { map, InfoWindow } = this.state;
     /* Check if the open infoWindow is different from the clicked marker */
-    if (infoWindow.marker !== marker) {
+    if (InfoWindow.marker !== marker) {
       /* if it is, set infoWindow to the clicked marker */
-      infoWindow.marker = marker
-      infoWindow.setContent(`<div>${marker.title}</div>`)
-      infoWindow.open(map, marker)
+      InfoWindow.marker = marker
+      InfoWindow.setContent(`<div>${marker.title}</div>`)
+      InfoWindow.open(map, marker)
 
-      infoWindow.addListener('closeclick', function () {
-        infoWindow.setMarker = null
-      });
+      InfoWindow.addListener('closeclick', function () {
+        InfoWindow.setMarker = null
+      })
     } else {
       /* if click on the marker that has already open infoWindow, reopen it */
-      infoWindow.open(map, marker)
+      InfoWindow.open(map, marker)
     }
+  }
+
+  openInfoWindow = (marker) => {
+    this.setState({
+      infoWindowIsOpen: true,
+      currentMarker: marker
+    });
+    this.populateInfoWindow(this.state.currentMarker)
   }
 
   render() {
@@ -87,6 +96,7 @@ class App extends Component {
         <InfoBox
           locationsList = {locations}
           markers={markers}
+          openInfoWindow={this.openInfoWindow}
         />
         <div id="map" ref="map"></div>
       </div>

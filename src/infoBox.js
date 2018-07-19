@@ -5,11 +5,21 @@ import sortBy from 'sort-by';
 import dataLocations from './locations.json'
 
 export default class InfoBox extends Component {
-  state = {
-    query: '',
-    filteredLocations: dataLocations,
-    filteredMarkers: []
+  constructor(props) {
+    super(props);
+    this.state = {
+      query: '',
+      filteredLocations: dataLocations,
+      filteredMarkers: [],
+      currentMarker: {}
+    }
   }
+
+  componentDidMount() {
+		this.setState({
+			filteredMarkers: this.props.markers
+		});
+	}
 
   updateQuery = (query) => {
     this.setState({ query })
@@ -48,8 +58,46 @@ export default class InfoBox extends Component {
     }, 1)
   }
 
+  /* match the marker visible on the map */
   handleMarkerVisibility = (marker) => {
-    this.state.filteredMarkers.map(filteredMarker => filteredMarker.id === marker.id && marker.setVisible(true))
+    this.state.filteredMarkers.map(filteredMarker =>
+      filteredMarker.id === marker.id &&
+      marker.setVisible(true))
+  }
+
+  manageMarker = (location) => {
+    let self = this
+
+    this.stopMarkerAnimation()
+    this.startMarkerAnimation(location)
+    setTimeout(() => {
+      self.stopMarkerAnimation()
+    }, 1250)
+
+    this.getCurrentMarker(location)
+
+    setTimeout(() => {
+      self.props.openInfoWindow(
+        self.state.currentMarker
+      )
+    }, 1)
+  }
+
+  stopMarkerAnimation = () => {
+    this.state.filteredMarkers.map(filteredMarker => filteredMarker.setAnimation(null))
+  }
+
+  startMarkerAnimation = (location) => {
+    this.state.filteredMarkers.map(filteredMarker => filteredMarker.id === location.key && filteredMarker.setAnimation(
+      window.google.maps.Animation.BOUNCE
+    ))
+  }
+
+  getCurrentMarker = (location) => {
+    this.state.filteredMarkers.map(filteredMarker =>
+      filteredMarker.id === location.key &&
+      this.setState({ currentMarker: filteredMarker })
+    )
   }
 
   render() {
@@ -76,6 +124,7 @@ export default class InfoBox extends Component {
           <li
             className="location"
             key={location.key}
+            onClick= {() => this.manageMarker(location)}
           >
             {location.title}
           </li>
