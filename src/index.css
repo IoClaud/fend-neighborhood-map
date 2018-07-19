@@ -39,3 +39,7 @@ li {
 .infoBox {
   min-width: 250px;
 }
+
+.infoWindow-content {
+  max-width: 500px !important;
+}

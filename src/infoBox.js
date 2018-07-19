@@ -35,7 +35,7 @@ export default class InfoBox extends Component {
       const match = new RegExp(escapeRegExp(query), 'i')
 
       /* Add location to the array if its title match the query */
-      showingLocation = this.props.locationsList.filter((location) => match.test(location.title))
+      showingLocation = this.props.locationsList.filter((location) => match.test(location.name))
 
       /* Add marker to the array if its title match the query */
       showingMarkers = this.props.markers.filter(marker => match.test(marker.title))
@@ -73,11 +73,9 @@ export default class InfoBox extends Component {
     setTimeout(() => {
       self.stopMarkerAnimation()
     }, 1250)
-
     this.getCurrentMarker(location)
-
     setTimeout(() => {
-      self.props.openInfoWindow(
+      self.props.getInfos(
         self.state.currentMarker
       )
     }, 1)
@@ -126,7 +124,7 @@ export default class InfoBox extends Component {
             key={location.key}
             onClick= {() => this.manageMarker(location)}
           >
-            {location.title}
+            {location.name}
           </li>
           ))
         }

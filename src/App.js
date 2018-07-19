@@ -11,12 +11,13 @@ class App extends Component {
     map: '',
     InfoWindow: {},
     markers: [],
-    currentMarker: {}
+    currentMarker: {},
+    infoContent: ''
   }
 
   componentDidMount() {
     window.initMap = this.initMap;
-    loadJS('https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyAWKxlzrErKIVd3KfAdeVRj-uW1rRVsoH0&v=3&callback=initMap');
+    loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAWKxlzrErKIVd3KfAdeVRj-uW1rRVsoH0&v=3&callback=initMap');
   }
 
   initMap = () => {
@@ -35,7 +36,7 @@ class App extends Component {
     /* Keep state in sync */
     this.setState({
       map,
-      InfoWindow : infoWindow
+      InfoWindow : infoWindow,
     });
 
     /* Create a marker for each location */
@@ -43,12 +44,14 @@ class App extends Component {
       let position = location.position;
       let title = location.title;
       let id = location.key;
+      let name = location.name;
 
       let marker = new window.google.maps.Marker({
         position: position,
         map: map,
         title: title,
         id: id,
+        name: name,
         animation: window.google.maps.Animation.DROP
       });
 
@@ -57,22 +60,51 @@ class App extends Component {
 
       /* Open infoWindow when click on the marker */
       marker.addListener('click', function () {
-        self.populateInfoWindow(marker);
+        self.getInfos(marker);
 
       });
     }
   }
 
-  populateInfoWindow(marker) {
+  getInfos = (marker) => {
+    let self = this
+    /* Get the good URL */
+    let place = marker.title;
+    let srcUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=' +
+    place;
+    srcUrl = srcUrl.replace(/ /g, '%20')
+
+    fetchJsonp(srcUrl)
+      .then(function(response) {
+        return response.json()
+      }).then(function (data) {
+        //console.log(data.query.pages)
+        let pages = data.query.pages
+        let pageId = Object.keys(data.query.pages)[0]
+        let pageContent = pages[pageId].extract
+
+        self.populateInfoWindow(marker, pageContent)
+        //console.log(self.state.infoContent);
+      }).catch(function (error) {
+        console.log('Parsing failed', error)
+      })
+
+  }
+
+  populateInfoWindow(marker, infoContent) {
     const { map, InfoWindow } = this.state;
 
-    this.getInfos(marker);
-
+    //this.getInfos(marker);
+    console.log('infoContent',infoContent);
     /* Check if the open infoWindow is different from the clicked marker */
     if (InfoWindow.marker !== marker) {
       /* if it is, set infoWindow to the clicked marker */
       InfoWindow.marker = marker
-      InfoWindow.setContent(`<div>${marker.title}</div>`)
+      InfoWindow.setContent(`
+        <div>${marker.name}</div>
+        <hr/>
+        <div class="infoWindow-content">${infoContent}</div>
+        `)
       InfoWindow.open(map, marker)
 
       InfoWindow.addListener('closeclick', function () {
@@ -84,33 +116,6 @@ class App extends Component {
     }
   }
 
-  openInfoWindow = (marker) => {
-    this.setState({
-      currentMarker: marker
-    });
-    this.populateInfoWindow(this.state.currentMarker)
-  }
-
-  getInfos = (marker) => {
-    /* Get the good URL */
-    let place = marker.title;
-    let srcUrl = 'https://en.wikipedia.org/w/api.php?action=query&titles=' +
-    place +
-    '&prop=revisions&rvprop=content&format=json&formatversion=2';
-    srcUrl = srcUrl.replace(/ /g, '%20');
-
-    fetchJsonp(srcUrl)
-      .then(function(response) {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error(
-          `Network response was not ok: ${response.statustext}`);
-      }).then(function (data) {
-        console.log(data);
-      });
-  }
-
   render() {
     const { locations, markers } = this.state
     return (
@@ -118,7 +123,7 @@ class App extends Component {
         <InfoBox
           locationsList = {locations}
           markers={markers}
-          openInfoWindow={this.openInfoWindow}
+          getInfos = {this.getInfos}
         />
         <div id="map" ref="map"></div>
       </div>
