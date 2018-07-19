@@ -86,14 +86,16 @@ class App extends Component {
         self.populateInfoWindow(marker, pageContent)
         //console.log(self.state.infoContent);
       }).catch(function (error) {
-        console.log('Parsing failed', error)
+        /* handle page error */
+        let pageError = 'Parsing failed ' + error;
+        alert(pageError);
       })
 
   }
 
   populateInfoWindow(marker, infoContent) {
     const { mapState, InfoWindow } = this.state;
-    
+
     /* Check if the open infoWindow is different from the clicked marker */
     if (InfoWindow.marker !== marker) {
       /* if it is, set infoWindow to the clicked marker */
