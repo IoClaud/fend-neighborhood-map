@@ -7,13 +7,21 @@ Turin Map
 ## Description
 
 This application is made with React, Google Maps Api and Wikipedia Api.</br>
-Google Maps Api shows on Google Map localisations of cultural places in Turin: The Royal Palace of Turin, the Palatine Tower, the Shroud of Turin, the Egyptian Museum of Turin and the Mole Antonelliana.</br>
+Google Maps Api shows on Google Map localisations of cultural places in Turin:
+- The Royal Palace of Turin,
+- the Palatine Tower,
+- the Shroud of Turin,
+- the Egyptian Museum of Turin,
+- the Mole Antonelliana.
+
 Wikipedia Api displays short information about choosen place.
 
 ## REACT COMPONENTS USES
 
 [escape-regex-string](https://www.npmjs.com/package/escape-regex-string)
+
 [sort-by](https://www.npmjs.com/package/sort-by)
+
 [fetch-jsonp](https://github.com/camsong/fetch-jsonp)
 
 ## INSTALLATION GUIDE
