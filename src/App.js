@@ -100,7 +100,7 @@ class App extends Component {
       /* if it is, set infoWindow to the clicked marker */
       InfoWindow.marker = marker
       InfoWindow.setContent(`
-        <div class="infoWindow-box">
+        <div tabIndex="0" class="infoWindow-box">
         <header>
         <p class="infoWindow-attribution">Provided by Wikipedia</p>
         <h2 class="infoWindow-title">${marker.name}</h2>

@@ -126,6 +126,7 @@ export default class InfoBox extends Component {
           >
           <input
             className="info-input"
+            aria-labelledby="search"
             type="text"
             placeholder="Search location..."
             value={query}
@@ -146,6 +147,7 @@ export default class InfoBox extends Component {
           filteredLocations.map(location => (
           <li
             tabIndex={0}
+            role="button"
             className="location"
             key={location.key}
             onClick= {() => this.manageMarker(location)}
