@@ -152,6 +152,6 @@ function loadJS(src) {
   script.async = true;
   ref.parentNode.insertBefore(script, ref);
   script.onerror = function () {
-    document.write('Load error: Google Maps')
+    alert('Load error: Google Maps')
   };
 }
