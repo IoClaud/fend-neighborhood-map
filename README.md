@@ -35,6 +35,7 @@ Wikipedia Api displays short information about choosen place.
 4. Install npm server on directory with application files.
 5. Run in a terminal npm server command: `npm start`.
 6. Visit the site: `http://localhost:3000`.
+7. For running in the production mode, run in a terminale the command: `npm run serve` and visit the site: `http://localhost:5000`.
 7. Now you can use the app!
 
 ## REQUIREMENTS
